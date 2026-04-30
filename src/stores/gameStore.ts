@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { cardsApi } from '../api/cardsApi'
 import { historyApi } from '../api/historyApi'
 import { secureStorage } from '../storage'
-import { INITIAL_CARDS, TAGS_AVAILABLE } from '../data/cards'
+import { TAGS_AVAILABLE } from '../data/cards'
 import type { CardModel, CardTag } from '../data/cards'
 
 export type GamePhase = 'SETUP' | 'IN_GAME' | 'END_GAME'

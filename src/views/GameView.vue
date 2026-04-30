@@ -154,7 +154,6 @@ import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useGameStore } from '../stores/gameStore'
 import { useSound } from '../composables/useSound'
-import type { CardModel } from '../data/cards'
 import PlayingCard from '../components/PlayingCard.vue'
 
 const gameStore = useGameStore()
