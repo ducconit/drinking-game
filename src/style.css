@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', sans-serif;
+  --color-brand-primary: #FF2E93;
+  --color-brand-secondary: #00F5FF;
+  --color-brand-tertiary: #FF9A1F;
+  --color-surface-base: #090914;
+  --color-surface-glass: rgba(255, 255, 255, 0.03);
+  --color-surface-glass-hover: rgba(255, 255, 255, 0.08);
+  --color-border-glass: rgba(255, 255, 255, 0.08);
+  --color-border-glass-strong: rgba(255, 255, 255, 0.15);
+  
+  --shadow-neon: 0 0 20px rgba(255, 46, 147, 0.4), 0 0 40px rgba(255, 46, 147, 0.2);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px var(--color-brand-primary)); }
+  50% { opacity: .5; filter: drop-shadow(0 0 2px var(--color-brand-primary)); }
+}
+
+/* Base Setup */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-surface-base);
+  color: white;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(255, 46, 147, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 85% 30%, rgba(0, 245, 255, 0.15) 0%, transparent 50%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Pro */
+.text-glow {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #a5a5b4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-gradient-primary {
+  background: linear-gradient(135deg, var(--color-brand-primary) 0%, #ff8a00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism Components */
+.glass-panel {
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border-glass);
+  box-shadow: var(--shadow-glass);
+  border-radius: 1.5rem;
+}
+
+/* Inputs */
+.input-field {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-border-glass);
+  color: white;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  font-size: 1rem;
+}
+.input-field:focus {
+  border-color: var(--color-brand-primary);
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 4px rgba(255, 46, 147, 0.15);
+  transform: translateY(-1px);
+}
+.input-field::placeholder {
+  color: #6b7280;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  border-radius: 1rem;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  user-select: none;
+  letter-spacing: 0.5px;
+}
+.btn:active {
+  transform: scale(0.94) !important;
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  filter: grayscale(1);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-brand-primary) 0%, #ff0f7b 100%);
+  color: white;
+  border: none;
+}
+.btn-primary:not(:disabled):hover {
+  box-shadow: var(--shadow-neon);
+  transform: translateY(-3px);
+}
+
+.btn-secondary {
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border-glass-strong);
+  color: white;
+}
+.btn-secondary:not(:disabled):hover {
+  background: var(--color-surface-glass-hover);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Page Transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(30px) scale(0.97);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-30px) scale(0.97);
+}
