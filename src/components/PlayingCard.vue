@@ -2,7 +2,7 @@
   <div class="playing-card-container" :class="{ flipped }">
     <div class="playing-card-inner">
       <!-- Mặt sau (Úp) -->
-      <div class="card-face card-back glass-panel flex flex-col items-center justify-center relative overflow-hidden">
+      <div class="card-face card-back flex flex-col items-center justify-center relative">
         <!-- Holographic Sheen Overlay -->
         <div class="holo-sheen"></div>
         <div class="text-7xl mb-6 filter drop-shadow-[0_0_20px_rgba(255,255,255,0.4)] animate-float">🍻</div>
@@ -14,7 +14,7 @@
       </div>
       
       <!-- Mặt trước (Ngửa) -->
-      <div class="card-face card-front glass-panel flex flex-col p-8 text-center justify-between relative overflow-hidden" v-if="card">
+      <div class="card-face card-front flex flex-col p-8 text-center justify-between relative" v-if="card">
         <!-- Holographic Sheen Overlay -->
         <div class="holo-sheen delay-300"></div>
         
@@ -95,11 +95,13 @@ defineProps<{
   position: absolute;
   width: 100%;
   height: 100%;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   border-radius: 2rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.15);
   background-color: var(--color-surface-base);
+  overflow: hidden;
 }
 
 .card-back {
