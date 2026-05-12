@@ -68,7 +68,7 @@
       <div 
         class="deck-area w-full flex justify-center mb-10 relative cursor-pointer" 
         @click="handleCardClick"
-        @touchstart="handleTouchStart"
+        @touchstart.passive="handleTouchStart"
         @touchend="handleTouchEnd"
       >
         <PlayingCard 
@@ -201,7 +201,7 @@ function handleTouchStart(e: TouchEvent) {
 }
 
 function handleTouchEnd(e: TouchEvent) {
-  if (!currentCard.value || !isFlipped.value) return
+  if (!currentCard.value) return
 
   const touchEndX = e.changedTouches[0].clientX
   const touchEndY = e.changedTouches[0].clientY
@@ -209,10 +209,18 @@ function handleTouchEnd(e: TouchEvent) {
   const deltaX = touchEndX - touchStartX
   const deltaY = touchEndY - touchStartY
   
-  // Vuốt (swipe) lớn hơn 40px
+  // Vuốt (swipe) lớn hơn 40px → next turn (chỉ khi đã lật)
   if (Math.abs(deltaX) > 40 || Math.abs(deltaY) > 40) {
-    nextTurn()
+    if (isFlipped.value) {
+      e.preventDefault() // Ngăn click event phát sinh sau touch
+      nextTurn()
+    }
+    return
   }
+
+  // Tap nhẹ (không swipe) → xử lý lật thẻ trực tiếp qua touch, ngăn click duplicate
+  e.preventDefault()
+  handleCardClick()
 }
 
 function nextTurn() {
@@ -271,6 +279,7 @@ function confirmExit() {
 .deck-area {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation; /* Loại bỏ 300ms tap delay */
 }
 
 /* Custom Toggle Switch */

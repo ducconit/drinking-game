@@ -61,6 +61,7 @@ defineProps<{
   perspective: 2000px; /* Sâu hơn để tạo hiệu ứng 3D mạnh hơn */
   cursor: pointer;
   margin: 0 auto;
+  touch-action: manipulation; /* Loại bỏ 300ms tap delay trên mobile */
 }
 
 @media (min-width: 768px) {
@@ -82,10 +83,12 @@ defineProps<{
   transform: rotateY(180deg) scale(1.05); /* Zoom nhẹ khi lật */
 }
 
-/* Hover effect 3D mượt mà */
-.playing-card-container:not(.flipped):hover .playing-card-inner {
-  transform: translateY(-12px) rotateX(8deg) rotateY(-8deg);
-  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 46, 147, 0.2);
+/* Hover effect 3D mượt mà - chỉ bật trên thiết bị có hover thật (mouse) */
+@media (hover: hover) and (pointer: fine) {
+  .playing-card-container:not(.flipped):hover .playing-card-inner {
+    transform: translateY(-12px) rotateX(8deg) rotateY(-8deg);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 46, 147, 0.2);
+  }
 }
 
 .card-face {
@@ -135,8 +138,10 @@ defineProps<{
   z-index: 5;
 }
 
-.playing-card-container:hover .holo-sheen {
-  transform: translateX(100%) translateY(100%);
-  transition: transform 1.5s ease-in-out;
+@media (hover: hover) and (pointer: fine) {
+  .playing-card-container:hover .holo-sheen {
+    transform: translateX(100%) translateY(100%);
+    transition: transform 1.5s ease-in-out;
+  }
 }
 </style>
